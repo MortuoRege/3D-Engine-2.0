@@ -1,11 +1,10 @@
 #ifndef MESH_H
 #define MESH_H
 #include <stdexcept>
-#include <string>
+//#include <string>
 #include <vector>
-#include <GL/glew.h>
+#include <glad/gl.h>
 #include <glm/glm.hpp>
-#include <memory>
 
 class Mesh {
 
@@ -18,8 +17,8 @@ struct Vertex {
     glm::vec4 color;
 };
 
-    Mesh(const std::string& filePath);
-    Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices);
+    //Mesh(const std::string& filePath);
+    Mesh(const std::vector<Vertex>& v, const std::vector<unsigned int>& i):vertices(v), indices(i) {};
     ~Mesh(){
         if (EBO) glDeleteBuffers(1, &EBO); // harmless if zero, even if unused
         if (VBO) glDeleteBuffers(1, &VBO);
@@ -33,21 +32,20 @@ struct Vertex {
             }
 
         if(!VBO) glGenBuffers(1, &VBO);
-        if(!EBO) glGenBuffers(1, &EBO);
         if(!VAO) glGenVertexArrays(1, &VAO);
+
+        glBindVertexArray(VAO);
+
+        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+        glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_STATIC_DRAW);
 
         // EBO (if indices)
             if (!indices.empty()) {
+                if(!EBO) glGenBuffers(1, &EBO);
                 glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
                 glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
             }
 
-        glBindVertexArray(VAO);
-
-
-        glBindBuffer(GL_ARRAY_BUFFER, VBO);
-
-        glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_STATIC_DRAW);
 
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, position));
         glEnableVertexAttribArray(0);

@@ -375,13 +375,14 @@ CMakeFiles/main.dir/main.cpp.o: \
  /usr/include/c++/15.2.1/bits/sstream.tcc \
  /usr/include/c++/15.2.1/iostream \
  /home/beka/PersonalProjects/openGL/camera.h \
- /usr/include/c++/15.2.1/math.h \
- /home/beka/PersonalProjects/openGL/stb_image.h \
- /usr/include/c++/15.2.1/stdlib.h /usr/include/c++/15.2.1/vector \
+ /usr/include/c++/15.2.1/math.h /home/beka/PersonalProjects/openGL/mesh.h \
+ /usr/include/c++/15.2.1/vector \
  /usr/include/c++/15.2.1/bits/stl_uninitialized.h \
  /usr/include/c++/15.2.1/bits/stl_vector.h \
  /usr/include/c++/15.2.1/bits/stl_bvector.h \
- /usr/include/c++/15.2.1/bits/vector.tcc /usr/include/c++/15.2.1/memory \
+ /usr/include/c++/15.2.1/bits/vector.tcc \
+ /home/beka/PersonalProjects/openGL/stb_image.h \
+ /usr/include/c++/15.2.1/stdlib.h /usr/include/c++/15.2.1/memory \
  /usr/include/c++/15.2.1/bits/stl_tempbuf.h \
  /usr/include/c++/15.2.1/bits/stl_raw_storage_iter.h \
  /usr/include/c++/15.2.1/bits/align.h \

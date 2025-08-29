@@ -89,8 +89,6 @@ private:
         3, 2, 6,
         6, 7, 3});
 
-    std::vector<float> vertices;
     float texCoords[100];
-    unsigned int indices[6];
 
 };

@@ -6,6 +6,7 @@ CMakeFiles/main.dir/engine.cpp.o: /home/beka/PersonalProjects/openGL/engine.cpp 
   /home/beka/PersonalProjects/openGL/engine.h \
   /home/beka/PersonalProjects/openGL/external/glad/include/KHR/khrplatform.h \
   /home/beka/PersonalProjects/openGL/external/glad/include/glad/gl.h \
+  /home/beka/PersonalProjects/openGL/mesh.h \
   /home/beka/PersonalProjects/openGL/shader.h \
   /home/beka/PersonalProjects/openGL/stb_image.h \
   /usr/include/SDL3/SDL.h \
@@ -670,6 +671,7 @@ CMakeFiles/main.dir/main.cpp.o: /home/beka/PersonalProjects/openGL/main.cpp \
   /home/beka/PersonalProjects/openGL/engine.h \
   /home/beka/PersonalProjects/openGL/external/glad/include/KHR/khrplatform.h \
   /home/beka/PersonalProjects/openGL/external/glad/include/glad/gl.h \
+  /home/beka/PersonalProjects/openGL/mesh.h \
   /home/beka/PersonalProjects/openGL/shader.h \
   /home/beka/PersonalProjects/openGL/stb_image.h \
   /usr/include/SDL3/SDL.h \
@@ -1261,6 +1263,8 @@ CMakeFiles/main.dir/engine.cpp.o:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/crtendS.o:
 
+/usr/lib/libstdc++.so:
+
 /usr/include/c++/15.2.1/bits/cxxabi_forced.h:
 
 /usr/include/c++/15.2.1/ext/alloc_traits.h:
@@ -1342,10 +1346,6 @@ CMakeFiles/main.dir/engine.cpp.o:
 /usr/include/c++/15.2.1/bits/memory_resource.h:
 
 /usr/include/glm/ext/matrix_clip_space.hpp:
-
-/usr/include/linux/types.h:
-
-/usr/include/c++/15.2.1/ext/string_conversions.h:
 
 /usr/include/c++/15.2.1/bits/predefined_ops.h:
 
@@ -1473,6 +1473,8 @@ CMakeFiles/main.dir/engine.cpp.o:
 
 /usr/include/SDL3/SDL_pixels.h:
 
+/home/beka/PersonalProjects/openGL/mesh.h:
+
 /usr/include/c++/15.2.1/pstl/pstl_config.h:
 
 /usr/include/bits/types/clock_t.h:
@@ -1552,6 +1554,10 @@ CMakeFiles/main.dir/engine.cpp.o:
 /usr/include/bits/stdint-least.h:
 
 /usr/include/c++/15.2.1/bits/shared_ptr_atomic.h:
+
+/usr/include/bits/locale.h:
+
+/usr/include/SDL3/SDL.h:
 
 /home/beka/PersonalProjects/openGL/stb_image.h:
 
@@ -1643,31 +1649,19 @@ CMakeFiles/main.dir/engine.cpp.o:
 
 /home/beka/PersonalProjects/openGL/engine.h:
 
-/usr/include/SDL3/SDL.h:
+/usr/include/SDL3/SDL_asyncio.h:
 
-/usr/include/bits/locale.h:
+/usr/include/glm/detail/type_mat2x2.inl:
 
-/usr/include/glm/ext/matrix_double3x3_precision.hpp:
+/usr/include/bits/types/__FILE.h:
 
-/usr/include/glm/mat2x3.hpp:
+/usr/include/features.h:
 
-/usr/include/SDL3/SDL_haptic.h:
+/usr/include/SDL3/SDL_audio.h:
 
-/usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/error_constants.h:
+/usr/include/SDL3/SDL_endian.h:
 
-/usr/include/asm/errno.h:
-
-/usr/include/bits/stdint-uintn.h:
-
-/usr/include/c++/15.2.1/system_error:
-
-/usr/include/sys/select.h:
-
-/usr/include/c++/15.2.1/bits/stl_function.h:
-
-/usr/include/c++/15.2.1/bits/invoke.h:
-
-/usr/include/bits/timesize.h:
+/usr/include/bits/pthreadtypes-arch.h:
 
 /usr/include/c++/15.2.1/bits/stl_pair.h:
 
@@ -1679,51 +1673,15 @@ CMakeFiles/main.dir/engine.cpp.o:
 
 /usr/include/glm/detail/type_vec1.inl:
 
-/usr/include/SDL3/SDL_asyncio.h:
-
-/usr/include/glm/detail/type_mat2x2.inl:
-
-/usr/include/bits/types/__FILE.h:
-
-/usr/include/features.h:
-
-/usr/include/c++/15.2.1/cstdlib:
-
-/usr/include/glm/ext/matrix_float2x4_precision.hpp:
-
-/usr/include/glm/detail/compute_vector_relational.hpp:
-
-/usr/include/SDL3/SDL_joystick.h:
-
-/usr/include/SDL3/SDL_surface.h:
-
-/usr/include/SDL3/SDL_audio.h:
-
-/usr/include/bits/endian.h:
-
-/usr/include/glm/ext/scalar_uint_sized.hpp:
-
-/usr/include/SDL3/SDL_endian.h:
-
-/usr/include/bits/pthreadtypes-arch.h:
-
 /usr/include/bits/types/cookie_io_functions_t.h:
 
 /usr/include/sys/single_threaded.h:
 
 /usr/include/asm-generic/errno.h:
 
-/usr/include/math.h:
-
-/usr/include/glm/ext/matrix_float4x4_precision.hpp:
-
 /usr/include/c++/15.2.1/cerrno:
 
 /usr/include/glm/ext/matrix_double4x2.hpp:
-
-/usr/include/glm/common.hpp:
-
-/usr/include/glm/gtc/type_ptr.inl:
 
 /usr/include/c++/15.2.1/bits/basic_ios.tcc:
 
@@ -1750,6 +1708,50 @@ CMakeFiles/main.dir/engine.cpp.o:
 /usr/include/SDL3/SDL_blendmode.h:
 
 /usr/include/time.h:
+
+/usr/include/glm/ext/matrix_double3x3_precision.hpp:
+
+/usr/include/glm/mat2x3.hpp:
+
+/usr/include/SDL3/SDL_haptic.h:
+
+/usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/error_constants.h:
+
+/usr/include/c++/15.2.1/cstdlib:
+
+/usr/include/glm/ext/matrix_float2x4_precision.hpp:
+
+/usr/include/glm/detail/compute_vector_relational.hpp:
+
+/usr/include/SDL3/SDL_joystick.h:
+
+/usr/include/bits/stdint-uintn.h:
+
+/usr/include/asm/errno.h:
+
+/usr/include/c++/15.2.1/system_error:
+
+/usr/include/SDL3/SDL_surface.h:
+
+/usr/include/sys/select.h:
+
+/usr/include/c++/15.2.1/bits/stl_function.h:
+
+/usr/include/c++/15.2.1/bits/invoke.h:
+
+/usr/include/glm/gtc/type_ptr.inl:
+
+/usr/include/glm/common.hpp:
+
+/usr/include/glm/ext/matrix_float4x4_precision.hpp:
+
+/usr/include/math.h:
+
+/usr/include/glm/ext/scalar_uint_sized.hpp:
+
+/usr/include/bits/endian.h:
+
+/usr/include/bits/timesize.h:
 
 /usr/include/SDL3/SDL_gamepad.h:
 
@@ -1890,6 +1892,10 @@ CMakeFiles/main.dir/engine.cpp.o:
 /usr/include/bits/flt-eval-method.h:
 
 /usr/include/bits/types/__fpos64_t.h:
+
+/usr/include/linux/types.h:
+
+/usr/include/c++/15.2.1/ext/string_conversions.h:
 
 /usr/include/c++/15.2.1/ext/type_traits.h:
 
@@ -2086,8 +2092,6 @@ CMakeFiles/main.dir/engine.cpp.o:
 /usr/include/glm/detail/type_vec4.hpp:
 
 /usr/include/locale.h:
-
-/usr/lib/libstdc++.so:
 
 /usr/include/glm/ext/matrix_double2x2.hpp:
 

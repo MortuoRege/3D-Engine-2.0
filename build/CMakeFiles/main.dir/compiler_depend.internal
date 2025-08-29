@@ -7,6 +7,7 @@ CMakeFiles/main.dir/engine.cpp.o
  /home/beka/PersonalProjects/openGL/engine.h
  /home/beka/PersonalProjects/openGL/external/glad/include/KHR/khrplatform.h
  /home/beka/PersonalProjects/openGL/external/glad/include/glad/gl.h
+ /home/beka/PersonalProjects/openGL/mesh.h
  /home/beka/PersonalProjects/openGL/shader.h
  /home/beka/PersonalProjects/openGL/stb_image.h
  /usr/include/SDL3/SDL.h
@@ -673,6 +674,7 @@ CMakeFiles/main.dir/main.cpp.o
  /home/beka/PersonalProjects/openGL/engine.h
  /home/beka/PersonalProjects/openGL/external/glad/include/KHR/khrplatform.h
  /home/beka/PersonalProjects/openGL/external/glad/include/glad/gl.h
+ /home/beka/PersonalProjects/openGL/mesh.h
  /home/beka/PersonalProjects/openGL/shader.h
  /home/beka/PersonalProjects/openGL/stb_image.h
  /usr/include/SDL3/SDL.h
