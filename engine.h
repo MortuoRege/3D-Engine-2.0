@@ -15,7 +15,6 @@
 #include "camera.h"
 #include "mesh.h"
 #include "stb_image.h"
-#include <iostream>
 #include <vector>
 #include <memory>
 
@@ -34,16 +33,7 @@ private:
     void processEventsAndInputs();
     bool isrunning = true;
 
-
-    unsigned int VBO;
-    unsigned int VAO;
-    unsigned int EBO;
-
-    unsigned int vertexShader;
-    unsigned int fragmentShader;
-    unsigned int shaderProgram;
     unsigned int texture;
-
 
     float deltaTime = 0.0f;
     float lastFrame = 0.0f;
@@ -66,7 +56,9 @@ private:
             {{ 0.5f, -0.5f,  0.5f}, {0,0,0}, {1.0f, 0.0f}, {1,1,1,1}},
             {{ 0.5f,  0.5f,  0.5f}, {0,0,0}, {1.0f, 1.0f}, {1,1,1,1}},
             {{-0.5f,  0.5f,  0.5f}, {0,0,0}, {0.0f, 1.0f}, {1,1,1,1}},
-    }, std::vector<unsigned int>{0, 1, 2,
+    }, std::vector<unsigned int>{
+
+        0, 1, 2,
         2, 3, 0,
 
         // front face

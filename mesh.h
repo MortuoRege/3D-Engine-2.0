@@ -1,5 +1,6 @@
 #ifndef MESH_H
 #define MESH_H
+
 #include <stdexcept>
 //#include <string>
 #include <vector>
@@ -20,7 +21,7 @@ struct Vertex {
     //Mesh(const std::string& filePath);
     Mesh(const std::vector<Vertex>& v, const std::vector<unsigned int>& i):vertices(v), indices(i) {};
     ~Mesh(){
-        if (EBO) glDeleteBuffers(1, &EBO); // harmless if zero, even if unused
+        if (EBO) glDeleteBuffers(1, &EBO);
         if (VBO) glDeleteBuffers(1, &VBO);
         if (VAO) glDeleteVertexArrays(1, &VAO);
     }
@@ -60,7 +61,7 @@ struct Vertex {
         glEnableVertexAttribArray(3);
 
         glBindVertexArray(0);
-        glBindBuffer(GL_ARRAY_BUFFER, 0); // OK to leave EBO bound to V
+        glBindBuffer(GL_ARRAY_BUFFER, 0); // OK to leave EBO bound
 
     }
     void bind() const
@@ -69,7 +70,10 @@ struct Vertex {
     };
     void draw() const
     {
-        if (!VAO) {return; }
+        if (!VAO)
+        {
+            throw std::runtime_error("VAO is not initialized");
+        };
 
         glBindVertexArray(VAO);
         if(!indices.empty())
@@ -79,9 +83,11 @@ struct Vertex {
         else if (!vertices.empty()) {
             glDrawArrays(GL_TRIANGLES, 0, vertices.size());
         }
-
+        else
+        {
+            throw std::runtime_error("Mesh has no vertices or indices");
+        }
     }
-
 
 private:
    unsigned int VAO = 0;

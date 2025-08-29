@@ -70,6 +70,7 @@ class Shader
                 fragment = glCreateShader(GL_FRAGMENT_SHADER);
                 glShaderSource(fragment, 1, &fShaderCode, NULL);
                 glCompileShader(fragment);
+
                 // print compile errors if any
                 glGetShaderiv(fragment, GL_COMPILE_STATUS, &success);
                 if(!success)

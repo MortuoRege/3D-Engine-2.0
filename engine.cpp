@@ -5,18 +5,15 @@
 #include <SDL3/SDL_timer.h>
 #include <math.h>
 
-Engine::Engine(): isrunning(true), window(nullptr), glctx(nullptr), VBO(0),
-vertexShader(0), fragmentShader(0),
-shaderProgram(0), VAO(0), EBO(0), texture(0){}
+Engine::Engine(): isrunning(true), window(nullptr), glctx(nullptr), texture(0){}
 
 Engine::~Engine() {
     cleanup();
 }
 
-
 bool Engine::init() {
     //initislizing the SDL
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+    if (!SDL_Init(SDL_INIT_VIDEO)) {
         SDL_Log("could not intialize SDL: %s", SDL_GetError());
         return false;
     }
@@ -52,7 +49,6 @@ bool Engine::init() {
         return false;
     }
 
-
     if (!gladLoadGL((GLADloadfunc)SDL_GL_GetProcAddress)) {
         std::cout << "Failed to initialize GLAD\n";
         SDL_GL_DestroyContext(glctx);
@@ -61,14 +57,11 @@ bool Engine::init() {
         return false;
     }
 
-
     //=========================================
      //SDL_SetWindowRelativeMouseMode(window, true);
-
     //=========================================
 
-    myshader = std::make_unique<Shader>("shader.vertex", "shader.fragment");
-
+    myshader = std::make_unique<Shader>("./shaders/shader.vertex", "./shaders/shader.fragment");
     mesh->createMesh();
     //texture setup note I don't need this many set up for the textures in the future
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -116,7 +109,7 @@ void Engine::processEventsAndInputs() {
             case SDL_EVENT_MOUSE_MOTION: {
                 float xrel = static_cast<float>(event.motion.xrel);
                 float yrel = static_cast<float>(event.motion.yrel);
-                camera->rotate(xrel, yrel);
+                camera->rotate(xrel, -yrel);
                 break;
             }
             default:
@@ -128,23 +121,22 @@ void Engine::processEventsAndInputs() {
     if (state[SDL_SCANCODE_S]) camera->moveBackward(deltaTime);
     if (state[SDL_SCANCODE_A]) camera->moveLeft(deltaTime);
     if (state[SDL_SCANCODE_D]) camera->moveRight(deltaTime);
-
 }
-
 
 void Engine::render()
 {
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    glm::mat4 view = camera->lookAt();
-
-    // Build matrices
-    int w, h; SDL_GetWindowSize(window, &w, &h);
-    glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)w/(float)h, 0.1f, 100.0f);
-
     // Use program BEFORE setting uniforms
     myshader->use();
+
+    // Build matrices
+    int w, h;
+    SDL_GetWindowSize(window, &w, &h);
+    glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)w/(float)h, 0.1f, 100.0f);
+
+    glm::mat4 view = camera->lookAt();
 
     // Upload uniforms to their own locations
     GLint viewLoc  = glGetUniformLocation(myshader->ID, "view");
@@ -154,16 +146,11 @@ void Engine::render()
     glUniformMatrix4fv(projLoc,  1, GL_FALSE, glm::value_ptr(projection));
 
     glEnable(GL_DEPTH_TEST);
-
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-
-      glBindVertexArray(VAO);
 
     glm::mat4 model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-    float angle = 20.0f;
-    model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+    model = glm::rotate(model, glm::radians(60.f), glm::vec3(1.0f, 0.3f, 0.5f));
     myshader->setMat4("model", model);
 
     mesh->draw();
@@ -171,13 +158,7 @@ void Engine::render()
     SDL_GL_SwapWindow(window);
 }
 
-
-
 void Engine::cleanup(){
-    if (shaderProgram) glDeleteProgram(shaderProgram);
-    if (VAO) glDeleteVertexArrays(1, &VAO);
-    if (VBO) glDeleteBuffers(1, &VBO);
-    if (EBO) glDeleteBuffers(1, &EBO);
     if (glctx) SDL_GL_DestroyContext(glctx); glctx = nullptr;
     if(window) SDL_DestroyWindow(window); window = nullptr;
     SDL_Quit();
