@@ -3,13 +3,13 @@
 
 CMakeFiles/main.dir/engine.cpp.o
  /home/beka/PersonalProjects/openGL/engine.cpp
- /home/beka/PersonalProjects/openGL/camera.h
- /home/beka/PersonalProjects/openGL/engine.h
+ /home/beka/PersonalProjects/openGL/header_files/camera.h
+ /home/beka/PersonalProjects/openGL/header_files/mesh.h
+ /home/beka/PersonalProjects/openGL/header_files/shader.h
+ /home/beka/PersonalProjects/openGL/header_files/stb_image.h
+ /home/beka/PersonalProjects/openGL/header_files/engine.h
  /home/beka/PersonalProjects/openGL/external/glad/include/KHR/khrplatform.h
  /home/beka/PersonalProjects/openGL/external/glad/include/glad/gl.h
- /home/beka/PersonalProjects/openGL/mesh.h
- /home/beka/PersonalProjects/openGL/shader.h
- /home/beka/PersonalProjects/openGL/stb_image.h
  /usr/include/SDL3/SDL.h
  /usr/include/SDL3/SDL_assert.h
  /usr/include/SDL3/SDL_asyncio.h
@@ -532,7 +532,7 @@ CMakeFiles/main.dir/engine.cpp.o
 
 CMakeFiles/main.dir/image_loader.cpp.o
  /home/beka/PersonalProjects/openGL/image_loader.cpp
- /home/beka/PersonalProjects/openGL/stb_image.h
+ /home/beka/PersonalProjects/openGL/header_files/stb_image.h
  /usr/include/alloca.h
  /usr/include/assert.h
  /usr/include/bits/atomic_wide_counter.h
@@ -670,13 +670,13 @@ CMakeFiles/main.dir/image_loader.cpp.o
 
 CMakeFiles/main.dir/main.cpp.o
  /home/beka/PersonalProjects/openGL/main.cpp
- /home/beka/PersonalProjects/openGL/camera.h
- /home/beka/PersonalProjects/openGL/engine.h
+ /home/beka/PersonalProjects/openGL/header_files/camera.h
+ /home/beka/PersonalProjects/openGL/header_files/mesh.h
+ /home/beka/PersonalProjects/openGL/header_files/shader.h
+ /home/beka/PersonalProjects/openGL/header_files/stb_image.h
+ /home/beka/PersonalProjects/openGL/header_files/engine.h
  /home/beka/PersonalProjects/openGL/external/glad/include/KHR/khrplatform.h
  /home/beka/PersonalProjects/openGL/external/glad/include/glad/gl.h
- /home/beka/PersonalProjects/openGL/mesh.h
- /home/beka/PersonalProjects/openGL/shader.h
- /home/beka/PersonalProjects/openGL/stb_image.h
  /usr/include/SDL3/SDL.h
  /usr/include/SDL3/SDL_assert.h
  /usr/include/SDL3/SDL_asyncio.h

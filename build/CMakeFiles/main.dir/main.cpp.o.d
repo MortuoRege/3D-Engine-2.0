@@ -1,6 +1,6 @@
 CMakeFiles/main.dir/main.cpp.o: \
  /home/beka/PersonalProjects/openGL/main.cpp /usr/include/stdc-predef.h \
- /home/beka/PersonalProjects/openGL/engine.h \
+ /home/beka/PersonalProjects/openGL/./header_files/engine.h \
  /home/beka/PersonalProjects/openGL/external/glad/include/glad/gl.h \
  /home/beka/PersonalProjects/openGL/external/glad/include/KHR/khrplatform.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdint.h \
@@ -279,7 +279,7 @@ CMakeFiles/main.dir/main.cpp.o: \
  /usr/include/glm/ext/vector_uint1.hpp \
  /usr/include/glm/ext/vector_uint1_sized.hpp \
  /usr/include/c++/15.2.1/cstring /usr/include/glm/gtc/type_ptr.inl \
- /home/beka/PersonalProjects/openGL/shader.h \
+ /home/beka/PersonalProjects/openGL/./header_files/./shader.h \
  /usr/include/c++/15.2.1/string /usr/include/c++/15.2.1/bits/stringfwd.h \
  /usr/include/c++/15.2.1/bits/memoryfwd.h \
  /usr/include/c++/15.2.1/bits/char_traits.h \
@@ -374,14 +374,15 @@ CMakeFiles/main.dir/main.cpp.o: \
  /usr/include/c++/15.2.1/bits/fstream.tcc /usr/include/c++/15.2.1/sstream \
  /usr/include/c++/15.2.1/bits/sstream.tcc \
  /usr/include/c++/15.2.1/iostream \
- /home/beka/PersonalProjects/openGL/camera.h \
- /usr/include/c++/15.2.1/math.h /home/beka/PersonalProjects/openGL/mesh.h \
+ /home/beka/PersonalProjects/openGL/./header_files/./camera.h \
+ /usr/include/c++/15.2.1/math.h \
+ /home/beka/PersonalProjects/openGL/./header_files/./mesh.h \
  /usr/include/c++/15.2.1/vector \
  /usr/include/c++/15.2.1/bits/stl_uninitialized.h \
  /usr/include/c++/15.2.1/bits/stl_vector.h \
  /usr/include/c++/15.2.1/bits/stl_bvector.h \
  /usr/include/c++/15.2.1/bits/vector.tcc \
- /home/beka/PersonalProjects/openGL/stb_image.h \
+ /home/beka/PersonalProjects/openGL/./header_files/./stb_image.h \
  /usr/include/c++/15.2.1/stdlib.h /usr/include/c++/15.2.1/memory \
  /usr/include/c++/15.2.1/bits/stl_tempbuf.h \
  /usr/include/c++/15.2.1/bits/stl_raw_storage_iter.h \

@@ -1,4 +1,4 @@
-#include "engine.h"
+#include "./header_files/engine.h"
 #include <SDL3/SDL_events.h>
 #include <SDL3/SDL_oldnames.h>
 #include <SDL3/SDL_scancode.h>
@@ -61,7 +61,48 @@ bool Engine::init() {
      //SDL_SetWindowRelativeMouseMode(window, true);
     //=========================================
 
-    myshader = std::make_unique<Shader>("./shaders/shader.vertex", "./shaders/shader.fragment");
+    myshader = std::make_unique<Shader>("./shaders_files/shader.vertex", "./shaders_files/shader.fragment");
+    mesh = std::make_unique<Mesh>(
+            std::vector<Mesh::Vertex>{
+            // back face
+            {{-0.5f, -0.5f, -0.5f}, {0,0,0}, {0.0f, 0.0f}, {1,1,1,1}},
+            {{ 0.5f, -0.5f, -0.5f}, {0,0,0}, {1.0f, 0.0f}, {1,1,1,1}},
+            {{ 0.5f,  0.5f, -0.5f}, {0,0,0}, {1.0f, 1.0f}, {1,1,1,1}},
+            {{-0.5f,  0.5f, -0.5f}, {0,0,0}, {0.0f, 1.0f}, {1,1,1,1}},
+
+            // front face
+            {{-0.5f, -0.5f,  0.5f}, {0,0,0}, {0.0f, 0.0f}, {1,1,1,1}},
+            {{ 0.5f, -0.5f,  0.5f}, {0,0,0}, {1.0f, 0.0f}, {1,1,1,1}},
+            {{ 0.5f,  0.5f,  0.5f}, {0,0,0}, {1.0f, 1.0f}, {1,1,1,1}},
+            {{-0.5f,  0.5f,  0.5f}, {0,0,0}, {0.0f, 1.0f}, {1,1,1,1}},
+    },
+    std::vector<unsigned int>{
+
+        0, 1, 2,
+        2, 3, 0,
+
+        // front face
+        4, 5, 6,
+        6, 7, 4,
+
+        // left face
+        4, 7, 3,
+        3, 0, 4,
+
+        // right face
+        1, 5, 6,
+        6, 2, 1,
+
+        // bottom face
+        0, 1, 5,
+        5, 4, 0,
+
+        // top face
+        3, 2, 6,
+        6, 7, 3}
+    );
+    camera = std::make_unique<Camera>();
+
     mesh->createMesh();
     //texture setup note I don't need this many set up for the textures in the future
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -71,7 +112,7 @@ bool Engine::init() {
 
    //loading the texture imgae
     int width, height, nrChannels;
-    unsigned char *data = stbi_load("wall.jpg", &width, &height, &nrChannels, 0);
+    unsigned char *data = stbi_load("./textures/wall.jpg", &width, &height, &nrChannels, 0);
 
     glGenTextures(1, &texture);
     glBindTexture(GL_TEXTURE_2D, texture);
