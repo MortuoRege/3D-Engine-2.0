@@ -1,0 +1,255 @@
+#include "engine.h"
+#include <SDL3/SDL_events.h>
+#include <SDL3/SDL_oldnames.h>
+#include <SDL3/SDL_scancode.h>
+#include <SDL3/SDL_timer.h>
+#include <math.h>
+
+Engine::Engine(): isrunning(true), window(nullptr), glctx(nullptr),
+vertices{
+    -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+     0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+
+    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+     0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+     0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+     0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+    -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+
+    -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+    -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+    -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+     0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+     0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+     0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+     0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+     0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+     0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+
+    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+    -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+}, texCoords{
+    0.0f, 0.0f,  // lower-left corner
+    1.0f, 0.0f,  // lower-right corner
+    0.5f, 1.0f   // top-center corner
+}, indices{0, 1, 3, 1, 2,3}, VBO(0),
+vertexShader(0), fragmentShader(0),
+shaderProgram(0), VAO(0), EBO(0), texture(0){}
+
+Engine::~Engine() {
+    cleanup();
+}
+
+
+bool Engine::init() {
+    //initislizing the SDL
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        SDL_Log("could not intialize SDL: %s", SDL_GetError());
+        return false;
+    }
+
+    //setting the minimal OpenGL version1
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+
+    //initializing the window
+    window = SDL_CreateWindow("Engine", 640, 480, SDL_WINDOW_OPENGL);
+    if (!window) {
+        SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Could not create window: %s", SDL_GetError());
+        SDL_Quit();
+        return false;
+    }
+
+    //creates an opengl context
+    glctx = SDL_GL_CreateContext(window);
+    if (!glctx) {
+        SDL_LogError(SDL_LOG_CATEGORY_ERROR, "SDL_GL_CreateContext failed: %s", SDL_GetError());
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return false;
+    }
+
+    if (!SDL_GL_MakeCurrent(window, glctx)) {
+        SDL_LogError(SDL_LOG_CATEGORY_ERROR, "SDL_GL_MakeCurrent failed: %s", SDL_GetError());
+        SDL_GL_DestroyContext(glctx);
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return false;
+    }
+
+
+    if (!gladLoadGL((GLADloadfunc)SDL_GL_GetProcAddress)) {
+        std::cout << "Failed to initialize GLAD\n";
+        SDL_GL_DestroyContext(glctx);
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return false;
+    }
+
+
+    //=========================================
+     //SDL_SetWindowRelativeMouseMode(window, true);
+
+    //=========================================
+
+
+    //initializing and binding vertex array object
+    glGenVertexArrays(1, &VAO);
+    glBindVertexArray(VAO);
+
+    //initializing and binding vertex buffer object
+    glGenBuffers(1, &VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    //sending data to the buffer, not that I am using a vector of floats
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
+
+    //creating shader program
+    myshader = std::make_unique<Shader>("shader.vertex", "shader.fragment");
+
+    //setting up vertex attribute pointers
+    // attipute at lcoation 0 is for the vertex data
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    // attribute at location 1 is for the texture coordinates
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+
+    //texture setup note I don't need this many set up for the textures in the future
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+   //loading the texture imgae
+    int width, height, nrChannels;
+    unsigned char *data = stbi_load("wall.jpg", &width, &height, &nrChannels, 0);
+
+    glGenTextures(1, &texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    glGenerateMipmap(GL_TEXTURE_2D);
+
+    //data was allocated by stbi_load, need to free it
+    stbi_image_free(data);
+
+    // glGenBuffers(1, &EBO);
+    // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    // glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+    //
+    return true;
+}
+
+void Engine::run(){
+    //just the game loop calculate the delta time for future use
+    while(isrunning)
+    {
+        float currentFrame = SDL_GetTicks()*0.01f;
+        deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+
+        processEventsAndInputs();
+        render();
+    }
+}
+
+void Engine::processEventsAndInputs() {
+    SDL_Event event;
+    const bool *state = SDL_GetKeyboardState(NULL);
+
+    while (SDL_PollEvent(&event)) {
+        switch (event.type) {
+            case SDL_EVENT_QUIT:
+                isrunning = false;
+                break;
+            case SDL_EVENT_MOUSE_MOTION: {
+                float xrel = static_cast<float>(event.motion.xrel);
+                float yrel = static_cast<float>(event.motion.yrel);
+                camera->rotate(xrel, yrel);
+                break;
+            }
+            default:
+                break;
+        }
+    }
+
+    if (state[SDL_SCANCODE_W]) camera->moveForward(deltaTime);
+    if (state[SDL_SCANCODE_S]) camera->moveBackward(deltaTime);
+    if (state[SDL_SCANCODE_A]) camera->moveLeft(deltaTime);
+    if (state[SDL_SCANCODE_D]) camera->moveRight(deltaTime);
+
+}
+
+
+void Engine::render()
+{
+    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    glm::mat4 view = camera->lookAt();
+
+    // Build matrices
+    int w, h; SDL_GetWindowSize(window, &w, &h);
+    glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)w/(float)h, 0.1f, 100.0f);
+
+    // Use program BEFORE setting uniforms
+    myshader->use();
+
+    // Upload uniforms to their own locations
+    GLint viewLoc  = glGetUniformLocation(myshader->ID, "view");
+    GLint projLoc  = glGetUniformLocation(myshader->ID, "projection");
+
+    glUniformMatrix4fv(viewLoc,  1, GL_FALSE, glm::value_ptr(view));
+    glUniformMatrix4fv(projLoc,  1, GL_FALSE, glm::value_ptr(projection));
+
+    glEnable(GL_DEPTH_TEST);
+
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
+      glBindVertexArray(VAO);
+
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+    float angle = 20.0f;
+    model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+    myshader->setMat4("model", model);
+
+    glDrawArrays(GL_TRIANGLES, 0, 36);
+
+    SDL_GL_SwapWindow(window);
+}
+
+
+
+void Engine::cleanup(){
+    if (shaderProgram) glDeleteProgram(shaderProgram);
+    if (VAO) glDeleteVertexArrays(1, &VAO);
+    if (VBO) glDeleteBuffers(1, &VBO);
+    if (EBO) glDeleteBuffers(1, &EBO);
+    if (glctx) SDL_GL_DestroyContext(glctx); glctx = nullptr;
+    if(window) SDL_DestroyWindow(window); window = nullptr;
+    SDL_Quit();
+}

@@ -1,0 +1,1 @@
+/usr/bin/c++ -g -Wl,--dependency-file=CMakeFiles/main.dir/link.d CMakeFiles/main.dir/main.cpp.o CMakeFiles/main.dir/engine.cpp.o CMakeFiles/main.dir/image_loader.cpp.o -o bin/main  /usr/lib/libSDL3.so.0.2.20 libglad.a -ldl /usr/lib/libGLX.so /usr/lib/libOpenGL.so

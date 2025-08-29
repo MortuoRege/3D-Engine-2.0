@@ -1,0 +1,26 @@
+[
+{
+  "directory": "/home/beka/PersonalProjects/openGL/build",
+  "command": "/usr/bin/cc  -I/home/beka/PersonalProjects/openGL/external/glad/include -g -o CMakeFiles/glad.dir/external/glad/src/gl.c.o -c /home/beka/PersonalProjects/openGL/external/glad/src/gl.c",
+  "file": "/home/beka/PersonalProjects/openGL/external/glad/src/gl.c",
+  "output": "CMakeFiles/glad.dir/external/glad/src/gl.c.o"
+},
+{
+  "directory": "/home/beka/PersonalProjects/openGL/build",
+  "command": "/usr/bin/c++  -I/home/beka/PersonalProjects/openGL/external/glad/include -g -std=gnu++17 -o CMakeFiles/main.dir/main.cpp.o -c /home/beka/PersonalProjects/openGL/main.cpp",
+  "file": "/home/beka/PersonalProjects/openGL/main.cpp",
+  "output": "CMakeFiles/main.dir/main.cpp.o"
+},
+{
+  "directory": "/home/beka/PersonalProjects/openGL/build",
+  "command": "/usr/bin/c++  -I/home/beka/PersonalProjects/openGL/external/glad/include -g -std=gnu++17 -o CMakeFiles/main.dir/engine.cpp.o -c /home/beka/PersonalProjects/openGL/engine.cpp",
+  "file": "/home/beka/PersonalProjects/openGL/engine.cpp",
+  "output": "CMakeFiles/main.dir/engine.cpp.o"
+},
+{
+  "directory": "/home/beka/PersonalProjects/openGL/build",
+  "command": "/usr/bin/c++  -I/home/beka/PersonalProjects/openGL/external/glad/include -g -std=gnu++17 -o CMakeFiles/main.dir/image_loader.cpp.o -c /home/beka/PersonalProjects/openGL/image_loader.cpp",
+  "file": "/home/beka/PersonalProjects/openGL/image_loader.cpp",
+  "output": "CMakeFiles/main.dir/image_loader.cpp.o"
+}
+]

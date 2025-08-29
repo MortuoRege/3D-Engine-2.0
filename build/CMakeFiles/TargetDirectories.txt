@@ -1,0 +1,4 @@
+/home/beka/PersonalProjects/openGL/build/CMakeFiles/main.dir
+/home/beka/PersonalProjects/openGL/build/CMakeFiles/glad.dir
+/home/beka/PersonalProjects/openGL/build/CMakeFiles/edit_cache.dir
+/home/beka/PersonalProjects/openGL/build/CMakeFiles/rebuild_cache.dir
